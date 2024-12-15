@@ -27,13 +27,13 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun outlinedTextFieldTheme(): TextFieldColors {
     return OutlinedTextFieldDefaults.colors(
-        focusedBorderColor = TailwindColor.Gray[800],
-        unfocusedBorderColor = TailwindColor.Gray[800],
-        focusedLabelColor = TailwindColor.Gray[900],
-        cursorColor = TailwindColor.Gray[900],
-        focusedTrailingIconColor = TailwindColor.Gray[800],
+        focusedBorderColor = MaterialTheme.colorScheme.onSurface,
+        unfocusedBorderColor = MaterialTheme.colorScheme.onSurface,
+        focusedLabelColor = MaterialTheme.colorScheme.onSurface,
+        cursorColor = MaterialTheme.colorScheme.onSurface,
+        focusedTrailingIconColor = MaterialTheme.colorScheme.onSurface,
         selectionColors = TextSelectionColors(
-            handleColor = TailwindColor.Gray[800],
+            handleColor = MaterialTheme.colorScheme.onSurface,
             backgroundColor = TailwindColor.Gray[400]
         )
     )

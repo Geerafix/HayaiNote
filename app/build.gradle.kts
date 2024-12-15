@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("com.google.devtools.ksp")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -60,6 +61,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.material3)
+    implementation(libs.androidx.ui.text.google.fonts)
+
+    implementation(libs.play.services.base)
 
     // room
     implementation(libs.androidx.room.runtime)
