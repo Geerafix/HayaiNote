@@ -25,7 +25,7 @@ private val LightColorScheme = lightColorScheme(
     tertiary = Pink40
 )
 @Composable
-fun outlinedTextFieldTheme(): TextFieldColors {
+fun outlinedTextFieldColors(): TextFieldColors {
     return OutlinedTextFieldDefaults.colors(
         focusedBorderColor = MaterialTheme.colorScheme.onSurface,
         unfocusedBorderColor = MaterialTheme.colorScheme.onSurface,

@@ -15,13 +15,16 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.hayainote.components.CustomDropdown
 import com.hayainote.components.CustomFloatingButton
 import com.hayainote.components.CustomOutlinedTextField
 import com.hayainote.components.CustomTopAppBar
-import com.hayainote.model.Note
+import com.hayainote.model.note.Note
+import com.hayainote.model.tag.TagViewModel
 import com.hayainote.ui.theme.HayaiNoteTheme
 
 class EditNote : ComponentActivity() {
@@ -29,6 +32,9 @@ class EditNote : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val note: Note? = intent.getParcelableExtra("note")
+
+        val vm = TagViewModel(this.application)
+
 
         setContent {
             HayaiNoteTheme {
@@ -71,20 +77,24 @@ class EditNote : ComponentActivity() {
                                 .fillMaxWidth()
                                 .requiredHeightIn(160.dp)
                         )
+                        val tags = vm.getAllTags()?.observeAsState(initial = emptyList())?.value ?: emptyList()
+
+
+                        CustomDropdown(tags)
                     }
                 }
             }
         }
     }
 
-    fun saveNote() {
+    private fun saveNote() {
         Toast.makeText(this.applicationContext,
             getString(R.string.saved_note_toast), Toast.LENGTH_SHORT).show()
         setResult(RESULT_OK)
         finish()
     }
 
-    fun deleteNote() {
+    private fun deleteNote() {
         Toast.makeText(this.applicationContext,
             getString(R.string.deleted_note_toast), Toast.LENGTH_SHORT).show()
         setResult(RESULT_OK)

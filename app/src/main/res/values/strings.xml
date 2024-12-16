@@ -16,4 +16,5 @@
     <string name="saved_note_toast">Zapisano notatkę.</string>
     <string name="added_note_toast">Dodano notatkę.</string>
     <string name="all_notes">Wszystkie notatki</string>
+    <string name="tag">Tag</string>
 </resources>

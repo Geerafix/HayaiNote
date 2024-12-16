@@ -2,7 +2,6 @@ package com.hayainote
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -21,6 +20,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,8 +34,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hayainote.components.CustomFloatingButton
 import com.hayainote.components.CustomTopAppBar
-import com.hayainote.model.Note
-import com.hayainote.model.NoteViewModel
+import com.hayainote.model.note.Note
+import com.hayainote.model.note.NoteViewModel
+import com.hayainote.model.note.NoteWithTag
 import com.hayainote.ui.theme.HayaiNoteTheme
 import com.hayainote.ui.theme.TailwindColor
 
@@ -84,7 +85,9 @@ class MainActivity : ComponentActivity() {
                     ) {
                         NoteList(
                             notes = notes,
-                            onNoteListItemClick = { note -> onListItemClick(note) }
+                            onNoteListItemClick = {
+                                note -> onListItemClick(note)
+                            }
                         )
                     }
                 }
@@ -105,7 +108,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun NoteList(notes: List<Note>, onNoteListItemClick: (Note) -> Unit = {}) {
+fun NoteList(notes: List<NoteWithTag>, onNoteListItemClick: (Note) -> Unit = {}) {
     LazyColumn (
         userScrollEnabled = true,
         verticalArrangement = Arrangement.spacedBy(10.dp),
@@ -115,27 +118,41 @@ fun NoteList(notes: List<Note>, onNoteListItemClick: (Note) -> Unit = {}) {
             Card(modifier = Modifier
                 .fillMaxWidth(),
                 colors = CardDefaults.cardColors(containerColor = TailwindColor.Gray[200]),
-                onClick = { onNoteListItemClick(note) }
+                onClick = { onNoteListItemClick(note.note) }
             ) {
                 Column(
                     modifier = Modifier
                         .fillParentMaxWidth()
-                        .padding(10.dp)
+                        .padding(10.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    Text(text = note.title,
+                    Text(text = note.note.title,
                         color = TailwindColor.Gray[800],
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold
                     )
 
-                    Text(text = note.content.ifEmpty { "-" },
-                        modifier = Modifier.padding(top = 15.dp),
+                    Text(text = note.note.content.ifEmpty { "-" },
                         color = TailwindColor.Gray[800],
                         fontSize = 15.sp,
                         maxLines = 8,
                         fontWeight = FontWeight.Normal,
                         overflow = TextOverflow.Ellipsis
                     )
+
+                    if (note.tag != null) {
+                        Card(
+                            shape = MaterialTheme.shapes.small,
+                            colors = CardDefaults.cardColors(containerColor = TailwindColor.Gray[100])
+                        ) {
+                            Text(
+                                text = note.tag!!.name,
+                                color = TailwindColor.Gray[800],
+                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 3.dp),
+                                fontSize = 15.sp,
+                            )
+                        }
+                    }
                 }
             }
         }

@@ -1,4 +1,4 @@
-package com.hayainote.model
+package com.hayainote.model.note
 
 import android.app.Application
 import androidx.lifecycle.LiveData
@@ -11,7 +11,7 @@ class NoteViewModel(application: Application) : ViewModel() {
         noteRepository = NoteRepository(application)
     }
 
-    fun getAllNotes(): LiveData<List<Note>>? {
+    fun getAllNotes(): LiveData<List<NoteWithTag>>? {
         return noteRepository?.getAllNotes()
     }
 

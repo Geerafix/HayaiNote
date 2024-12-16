@@ -70,8 +70,6 @@ class AddNote : ComponentActivity() {
                                 .fillMaxWidth()
                                 .requiredHeightIn(160.dp)
                         )
-
-                        CustomDropdown()
                     }
                 }
             }

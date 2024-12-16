@@ -1,23 +1,23 @@
-package com.hayainote.model
+package com.hayainote.model.note
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.hayainote.room.NoteDatabase
+import com.hayainote.room.HayaiNoteDatabase
 
 class NoteRepository(application: Application) {
     private var noteDao: NoteDao?= null
 
     init {
-        val database: NoteDatabase = NoteDatabase.getInstance(application)
+        val database: HayaiNoteDatabase = HayaiNoteDatabase.getInstance(application)
         this.noteDao = database.noteDao()
     }
 
-    fun getAllNotes(): LiveData<List<Note>>? {
+    fun getAllNotes(): LiveData<List<NoteWithTag>>? {
         return noteDao?.findAllNotes()
     }
 
     fun insertNote(note: Note) {
-        NoteDatabase.executorService.execute {
+        HayaiNoteDatabase.executorService.execute {
             noteDao?.insertNote(note)
         }
     }
